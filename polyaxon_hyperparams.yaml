@@ -13,9 +13,9 @@ hptuning:
     log_learning_rate:
       values: [-2, -3, -4]
     optimizer:
-      values: ['adam', 'rmsprop', 'sgd']
+      values: ['adam', 'sgd']
     loss_metric:
-      values: ['mae', 'mse', 'categorical_crossentropy']
+      values: ['categorical_crossentropy']
     first_layer_output:
       values: [32, 60, 128]
     kernel_size:
