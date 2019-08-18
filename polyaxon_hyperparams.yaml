@@ -27,8 +27,10 @@ hptuning:
         - 'conv2d:64,maxpooling2d,dropout:0.2,flatten,dense:128,dropout:0.5'
         - 'conv2d:88,maxpooling2d,dropout:0.2,flatten,dense:64,dropout:0.5'
         - 'conv2d:100,conv2d:64,maxpooling2d,dropout:0.5,flatten,dense:64,dense:24,dropout:0.2'
+
+
 build:
-  image: python:3.7
+  image: python:3
   build_steps:
     - pip install -U  -r requirements.txt
 run:
