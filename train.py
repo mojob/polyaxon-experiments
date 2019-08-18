@@ -1,20 +1,15 @@
 import argparse
-import numpy as np
-import os
 import json
 
 from argparse import ArgumentTypeError
 
-import keras
 from keras import optimizers
 from keras import backend as kb
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
-
 from keras.datasets import mnist
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
+from keras.models import Sequential
 
 from math import sqrt
 
