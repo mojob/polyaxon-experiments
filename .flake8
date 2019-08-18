@@ -1,0 +1,9 @@
+[flake8]
+# https://lintlyci.github.io/Flake8Rules/
+exclude =
+    .git
+max-line-length = 120
+statistics = 1
+verbose = 1
+max-complexity = 10
+ignore = Q000, Q001, W504

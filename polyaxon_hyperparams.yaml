@@ -1,0 +1,40 @@
+# See full specification at:
+# https://docs.polyaxon.com/references/polyaxonfile-yaml-specification/
+---
+version: 1
+kind: group
+framework: keras
+tags: ['mnist_keras']
+hptuning:
+  concurrency: 3
+  matrix:
+    epochs:
+      values: [12, 50, 100]
+    log_learning_rate:
+      values: [-2, -3, -4]
+    optimizer:
+      values: ['adam', 'rmsprop', 'sgd']
+    loss_metric:
+      values: ['mae', 'mse', 'sparse_categorical_crossentropy']
+    first_layer_output:
+      values: [32, 60, 128]
+    kernel_size:
+      values: [2, 3, 4]
+    pool_size:
+      values: [2, 3]
+    layers:
+      values:
+        - 'conv2d:64,maxpooling2d,dropout:0.2,flatten,dense:128,dropout:0.5'
+        - 'conv2d:88,maxpooling2d,dropout:0.2,flatten,dense:64,dropout:0.5'
+        - 'conv2d:100,conv2d:64,maxpooling2d,dropout:0.5,flatten,dense:64,dense:24,dropout:0.2'
+build:
+  image: mojob/polyaxon-experiments:latest
+run:
+  cmd: python polyaxon-experiments/train.py \
+    --epochs={{ epochs }} \
+    --log_learning_rate={{ log_learning_rate }} \
+    --optimizer={{ optimizer }} \
+    --first_layer_output={{ first_layer_output }} \
+    --kernel_size={{ kernel_size }} \
+    --pool_size={{ pool_size }} \
+    --layers={{ layers }} \
