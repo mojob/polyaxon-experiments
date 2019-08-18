@@ -1,0 +1,28 @@
+---
+version: 1
+kind: experiment
+framework: keras
+tags: ['mnist_keras']
+
+declarations:
+  epochs: 12
+  log_learning_rate: -3
+  optimizer: 'adam'
+  loss_metric: 'sparse_categorical_crossentropy'
+  layers: 'conv2d:64,maxpooling2d,dropout:0.2,flatten,dense:128,dropout:0.5'
+  first_layer_output: 32
+  kernel_size: 3
+  pool_size: 2
+
+build:
+  image: mojob/polyaxon-experiments:latest
+
+run:
+  cmd: python polyaxon-experiments/train.py \
+    --epochs={{ epochs }} \
+    --log_learning_rate={{ log_learning_rate }} \
+    --optimizer={{ optimizer }} \
+    --first_layer_output={{ first_layer_output }} \
+    --kernel_size={{ kernel_size }} \
+    --pool_size={{ pool_size }} \
+    --layers={{ layers }} \
