@@ -17,7 +17,7 @@ declarations:
 build:
   image: python:3.7
   build_steps:
-    - pip install --no-cache-dir -U -r requirements.txt
+    - pip install -U -r requirements.txt
 
 run:
   cmd: python -u train.py \
