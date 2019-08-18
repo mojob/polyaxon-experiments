@@ -20,7 +20,8 @@ build:
     - pip install --no-cache-dir -r requirements.txt
 
 run:
-  cmd: python -u train.py --epochs={{ epochs }} \
+  cmd: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib && \
+                          python -u train.py --epochs={{ epochs }} \
                           --log_learning_rate={{ log_learning_rate }} \
                           --optimizer={{ optimizer }} \
                           --first_layer_output={{ first_layer_output }} \
