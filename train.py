@@ -10,8 +10,7 @@ from keras.datasets import mnist
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.models import Sequential
-
-from math import sqrt
+from keras.utils import to_categorical
 
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 
@@ -132,6 +131,9 @@ def create_data_set(img_rows, img_cols):
     print('x_train shape:', x_train.shape)
     print(x_train.shape[0], 'train samples')
     print(x_test.shape[0], 'test samples')
+    # convert class vectors to binary class matrices
+    y_train = to_categorical(y_train, 10)  # 10 = 0-9
+    y_test = to_categorical(y_test, 10)
     return x_train, y_train, x_test, y_test, input_shape
 
 
@@ -188,7 +190,7 @@ def create_sequential_model(
             sequential_layers.append(dense_layer)
         if layer_type == 'maxpooling2d':
             max_pooling_layer = MaxPooling2D(
-                pool_size=(pool_size, pool_size)
+                pool_size=(pool_size, pool_size),
             )
             sequential_layers.append(max_pooling_layer)
         if layer_type == 'flatten':
@@ -212,7 +214,7 @@ def create_result_report(model, x_test, y_test):
     Create a dictionary with results from test data set
     predictions.
 
-    Reports mae, rmse, mse, r2
+    Reports mae, mse, r2
     """
     prediction_on_test = model.predict(x_test)
     mae = mean_absolute_error(
@@ -233,10 +235,9 @@ def create_result_report(model, x_test, y_test):
         )
     )
     return {
-        'MSE': mse,
-        'RMSE': sqrt(mse),
-        'MAE': mae,
-        'R2': r2,
+        'MSE': float(mse),
+        'MAE': float(mae),
+        'R2': float(r2),
     }
 
 
@@ -335,20 +336,20 @@ def main():
     # Not necessary when polyaxon does this in its own
     # keras callback. But nice if you are doing something
     # like a custom metric.
-    measures = create_result_report(
+    report = create_result_report(
         model=model,
         x_test=x_test,
         y_test=y_test,
     )
     experiment.log_metrics(
-        **measures,
+        **report,
     )
     print(
         model.summary(),
     )
     print(
         json.dumps(
-            measures,
+            report,
             indent=4,
         )
     )
