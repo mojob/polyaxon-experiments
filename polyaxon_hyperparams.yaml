@@ -27,18 +27,16 @@ hptuning:
         - 'conv2d:64,maxpooling2d,dropout:0.2,flatten,dense:128,dropout:0.5'
         - 'conv2d:88,maxpooling2d,dropout:0.2,flatten,dense:64,dropout:0.5'
         - 'conv2d:100,conv2d:64,maxpooling2d,dropout:0.5,flatten,dense:64,dense:24,dropout:0.2'
-
-
 build:
   image: python:3
   build_steps:
     - pip install -U  -r requirements.txt
 run:
-  cmd: python -u train.py \
-    --epochs={{ epochs }} \
-    --log_learning_rate={{ log_learning_rate }} \
-    --optimizer={{ optimizer }} \
-    --first_layer_output={{ first_layer_output }} \
-    --kernel_size={{ kernel_size }} \
-    --pool_size={{ pool_size }} \
-    --layers={{ layers }}
+  cmd: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib && \
+                          python -u train.py --epochs={{ epochs }} \
+                          --log_learning_rate={{ log_learning_rate }} \
+                          --optimizer={{ optimizer }} \
+                          --first_layer_output={{ first_layer_output }} \
+                          --kernel_size={{ kernel_size }} \
+                          --pool_size={{ pool_size }} \
+                          --layers={{ layers }}
