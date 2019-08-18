@@ -15,10 +15,12 @@ declarations:
   pool_size: 2
 
 build:
-  image: mojob/polyaxon-experiments:latest
+  image: python:3.7
+  build_steps:
+    - pip install requirements.txt
 
 run:
-  cmd: python polyaxon-experiments/train.py \
+  cmd: python train.py \
     --epochs={{ epochs }} \
     --log_learning_rate={{ log_learning_rate }} \
     --optimizer={{ optimizer }} \

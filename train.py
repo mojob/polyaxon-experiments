@@ -297,7 +297,7 @@ def main():
         metrics=[r2_keras, 'mse', 'mae', 'accuracy'],
     )
     # Fit model
-    history = model.fit(
+    model.fit(
         x=x_train,
         y=y_train,
         batch_size=128,
@@ -347,6 +347,9 @@ def main():
     )
     experiment.log_metrics(
         **measures,
+    )
+    print(
+        model.summary(),
     )
     print(
         json.dumps(
