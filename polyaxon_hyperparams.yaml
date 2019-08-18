@@ -15,7 +15,7 @@ hptuning:
     optimizer:
       values: ['adam', 'rmsprop', 'sgd']
     loss_metric:
-      values: ['mae', 'mse', 'sparse_categorical_crossentropy']
+      values: ['mae', 'mse', 'categorical_crossentropy']
     first_layer_output:
       values: [32, 60, 128]
     kernel_size:

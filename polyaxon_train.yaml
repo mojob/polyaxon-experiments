@@ -7,7 +7,7 @@ declarations:
   epochs: 12
   log_learning_rate: -3
   optimizer: 'adam'
-  loss_metric: 'sparse_categorical_crossentropy'
+  loss_metric: 'categorical_crossentropy'
   layers: 'conv2d:64,maxpooling2d,dropout:0.2,flatten,dense:128,dropout:0.5'
   first_layer_output: 32
   kernel_size: 3
