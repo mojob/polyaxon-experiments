@@ -17,10 +17,10 @@ declarations:
 build:
   image: python:3.7
   build_steps:
-    - pip install -r requirements.txt
+    - pip install --no-cache-dir -U -r requirements.txt
 
 run:
-  cmd: python train.py \
+  cmd: python -u train.py \
     --epochs={{ epochs }} \
     --log_learning_rate={{ log_learning_rate }} \
     --optimizer={{ optimizer }} \
