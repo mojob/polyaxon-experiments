@@ -39,4 +39,4 @@ run:
     --first_layer_output={{ first_layer_output }} \
     --kernel_size={{ kernel_size }} \
     --pool_size={{ pool_size }} \
-    --layers={{ layers }} \
+    --layers={{ layers }}
