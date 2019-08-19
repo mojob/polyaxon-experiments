@@ -5,3 +5,5 @@ build:
   build_steps:
     - pip3 install jupyter
     - pip3 install -r requirements.txt
+  env_vars:
+    - ['LD_LIBRARY_PATH', '/usr/local/lib']

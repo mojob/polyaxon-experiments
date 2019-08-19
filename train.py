@@ -1,21 +1,20 @@
 import argparse
 import json
-
 from argparse import ArgumentTypeError
 
-from keras import optimizers
+
 from keras import backend as kb
+from keras import optimizers
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from keras.datasets import mnist
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
 from keras.models import Sequential
 from keras.utils import to_categorical
 
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
-
 from polyaxon_client.tracking import Experiment
 from polyaxon_client.tracking.contrib.keras import PolyaxonKeras
+
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 
 def parse_arguments():
@@ -26,22 +25,22 @@ def parse_arguments():
     parser.add_argument(
         '--epochs',
         type=int,
-        default=1000
+        default=1000,
     )
     parser.add_argument(
         '--log_learning_rate',
         type=int,
-        default=-2
+        default=-2,
     )
     parser.add_argument(
         '--loss_metric',
         type=str_arg,
-        default='mae'
+        default='mae',
     )
     parser.add_argument(
         '--optimizer',
         type=str,
-        default='adam'
+        default='adam',
     )
     parser.add_argument(
         '--layers',
@@ -107,7 +106,7 @@ def r2_keras(y_true, y_pred):
     """
     ss_res = kb.sum(kb.square(y_true - y_pred))
     ss_tot = kb.sum(kb.square(y_true - kb.mean(y_true)))
-    return 1 - ss_res/(ss_tot + kb.epsilon())
+    return 1 - ss_res / (ss_tot + kb.epsilon())
 
 
 def create_data_set(img_rows, img_cols):
@@ -231,8 +230,8 @@ def create_result_report(model, x_test, y_test):
     )
     print(
         'First 5 predictions: \n{}'.format(
-            (prediction_on_test.tolist()[:5], y_test.tolist()[:5])
-        )
+            (prediction_on_test.tolist()[:5], y_test.tolist()[:5]),
+        ),
     )
     return {
         'MSE': float(mse),
@@ -312,7 +311,7 @@ def main():
                 factor=0.2,
                 patience=6,
                 min_lr=0,
-                verbose=1
+                verbose=1,
             ),
             # Polyaxon provides a Keras callback,
             # you can use this callback with your experiment
@@ -351,7 +350,7 @@ def main():
         json.dumps(
             report,
             indent=4,
-        )
+        ),
     )
 
 
